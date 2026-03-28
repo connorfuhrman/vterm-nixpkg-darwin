@@ -19,7 +19,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     make install PREFIX=$out
-    install_name_tool -id $out/lib/libvterm.0.dylib $out/lib/libvterm.dylib  # <-- Darwin specific
+    install_name_tool -id $out/lib/libvterm.0.dylib $out/lib/libvterm.dylib
   '' ;
 
   meta = with lib; {

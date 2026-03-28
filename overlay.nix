@@ -1,12 +1,13 @@
-{ lib, self, inputs, ... }:
+{ inputs, ... }:
 {
-  flake.overlays.default = lib.composeManyExtensions [
-    (final: prev: {
-      libvterm = final.callPackage ./package.nix {
-        inherit (final)
-          glibtool;
-        src = inputs.libvterm;
-      };
-    })
-  ];
+  flake.overlays.default = 
+    final: prev: {
+      libvterm = if final.stdenv.isDarwin then
+        final.callPackage ./package.nix {
+          inherit (final)
+            glibtool;
+          src = inputs.libvterm;
+        }
+      else prev.libvterm;
+    };
 }
